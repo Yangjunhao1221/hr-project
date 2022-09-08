@@ -1,7 +1,11 @@
-// import request from '@/utils/request'
-
-export function login(data) {
-
+import request from '@/utils/request'
+//用户登录接口
+export function loginAPI(data) {
+    return request({
+        url: '/sys/login',
+        method: 'GET',
+        data
+    })
 }
 
 export function getInfo(token) {

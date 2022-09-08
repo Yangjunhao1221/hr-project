@@ -27,7 +27,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  lintOnSave: false,
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -35,9 +35,21 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    }
+    },
     // before: require('./mock/mock-server.js')
+    Proxy: {
+      // 匹配到地址中有/api后，就进行跨域的一系列操作
+      '/api': {
+        target: 'http://ihrm-java.itheima.net/', // 跨域请求地址,默认后面加了/api
+        changeOrigin: true, // 是否开启跨域
+        // pathRewrite: {
+        //   // 重新路由  localhost:8888/api/login  => www.baidu.com/api/login
+        //   '^/api': '' // 假设我们想把 localhost:8888/api/login 变成www.baidu.com/login 就需要这么做
+        // }
+      }
+    }
   },
+
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
